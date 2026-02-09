@@ -40,6 +40,17 @@ export default function TabsLayout() {
                     
                 }}
             />
+
+            <Tabs.Screen    
+                name="auth"
+                options={{
+                    title: "S'authenfifier",
+                    tabBarIcon: ({ color, size }) => (
+                        <Ionicons name="person" size={size} color={color} />
+                    ),
+                    
+                }}
+            />
         </Tabs>
     )
 }

@@ -14,7 +14,7 @@ export default function Explore() {
       }}
     >
 
-        <Text>This is the explore tab.</Text>
+        <Text style={{ fontSize: 24, fontWeight: "bold" }}>Explore</Text>
         
         <TextInput
             placeholder="Enter Name"

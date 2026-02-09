@@ -11,7 +11,7 @@ export default function Index() {
     >
       <Text style={{ fontSize: 24, fontWeight: "bold" }}>Accueil</Text>
 
-      <Text style={{ fontSize: 12, fontWeight: "light" }}>Bienvenue sur la page d'accueil</Text>
+      <Text style={{ fontSize: 16, fontWeight: "light" }}>Bienvenue sur la page d'accueil</Text>
     </View>
   );
 }
