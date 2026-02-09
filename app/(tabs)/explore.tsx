@@ -1,9 +1,8 @@
-import { router } from "expo-router";
 import { useState } from "react";
-import { Button, Text, TextInput, View } from "react-native";
+import { Text, TextInput, View } from "react-native";
 
 
-export default function Index() {
+export default function Explore() {
     
   const [name, setName] = useState('');
   return (
@@ -15,9 +14,8 @@ export default function Index() {
       }}
     >
 
-        <Text>This is the about.</Text>
-        <Button title="Go to Index" onPress={()=>router.push("/")}/>
-    
+        <Text>This is the explore tab.</Text>
+        
         <TextInput
             placeholder="Enter Name"
             value={name}
