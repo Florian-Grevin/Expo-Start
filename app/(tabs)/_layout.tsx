@@ -6,9 +6,19 @@ export default function TabsLayout() {
     return (
         <Tabs
             screenOptions={{
-                tabBarInactiveTintColor: "#007AFF",
+                tabBarInactiveTintColor: "#afd7ffff",
+                tabBarActiveTintColor: "#ffffffff",
                 headerShown: true,
-            }}  
+                headerStyle: {
+                    backgroundColor: "#3b83cbff",
+                },
+                headerTintColor: "white",
+                headerTitleAlign: "center",
+                tabBarStyle: {
+                    backgroundColor: "#0a3766",
+                },
+            }
+            }
         >
 
             <Tabs.Screen    
@@ -44,7 +54,7 @@ export default function TabsLayout() {
             <Tabs.Screen    
                 name="auth"
                 options={{
-                    title: "S'authenfifier",
+                    title: "S'authentifier",
                     tabBarIcon: ({ color, size }) => (
                         <Ionicons name="person" size={size} color={color} />
                     ),
