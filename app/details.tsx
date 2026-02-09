@@ -16,7 +16,13 @@ export default function DetailsScreen() {
         <Text style={styles.headerTitle}>Détails</Text>
       </View>
 
-      <Text style={styles.subtitle}>Ce sont les détails</Text>
+      <View style={styles.content}>
+        <Text style={styles.title}>Ce sont les détails</Text>
+
+        <Text style={styles.description}>
+          Cette page est accessible via la navigation stack, pas les ongles
+        </Text>
+      </View>
     </View>
   );
 }
@@ -24,14 +30,14 @@ export default function DetailsScreen() {
 const styles = StyleSheet.create({
   container: {
     flex: 1,
-    paddingTop: 60,
-    paddingHorizontal: 20,
     backgroundColor: "#ffffff",
   },
 
   header: {
     flexDirection: "row",
     alignItems: "center",
+    paddingTop: 60,
+    paddingHorizontal: 20,
     marginBottom: 20,
   },
 
@@ -46,10 +52,23 @@ const styles = StyleSheet.create({
     color: "#0a3766",
   },
 
-  subtitle: {
-    fontSize: 20,
-    color: "#333",
-    marginTop: 20,
+  content: {
+    flex: 1,
+    justifyContent: "center",
+    alignItems: "center",
+    paddingHorizontal: 20,
+  },
+
+  title: {
+    fontSize: 24,
+    fontWeight: "bold",
     textAlign: "center",
+  },
+
+  description: {
+    fontSize: 18,
+    fontWeight: "300",
+    textAlign: "center",
+    marginTop: 10,
   },
 });
