@@ -1,7 +1,6 @@
 import { useState } from "react";
 import { Text, TextInput, View } from "react-native";
 
-
 export default function Explore() {
     
   const [name, setName] = useState('');
