@@ -18,41 +18,63 @@ export default function Explore() {
     status: string;
   };
 
-
-  const [name, setName] = useState("");
   const [page, setPage] = useState(1);
   const [result, setResult] = useState<Character[]>([]);
   const [selected, setSelected] = useState<Character | null>(null);
   const [error, setError] = useState(null);
+  const [isLoadingMore, setIsLoadingMore] = useState(false);
+
 
   async function handleFetch() {
     const response = await fetchUsers(1);
 
     if (!response.ok) return setError(response.error);
 
-    setResult(response.data.results);
+    const items: Character[] = response.data.results.map((item: Character) => ({
+      ...item,
+      id: Number(item.id),
+    }));
+
+    setResult(items);
     setPage(1);
   }
 
 
   async function loadMore() {
+    if (isLoadingMore) return;
+    setIsLoadingMore(true);
+
     const nextPage = page + 1;
 
     const response = await fetchUsers(nextPage);
-    if (!response.ok) return;
+    if (!response.ok) {
+      setIsLoadingMore(false);
+      return;
+    }
 
-    const newItems: Character[] = response.data.results;
+    const newItems: Character[] = response.data.results.map((item: Character) => ({
+      ...item,
+      id: Number(item.id),
+    }));
 
-    if (!newItems || newItems.length === 0) return;
+    if (!newItems || newItems.length === 0) {
+      setIsLoadingMore(false);
+      return;
+    }
 
     const filtered = newItems.filter(
       (item) => !result.some((existing) => existing.id === item.id)
     );
 
+    if (filtered.length === 0) {
+      setIsLoadingMore(false);
+      return;
+    }
 
-    if (filtered.length === 0) return;
     setResult((prev) => [...prev, ...filtered]);
     setPage(nextPage);
+
+    setIsLoadingMore(false);
   }
 
 
@@ -67,7 +89,6 @@ export default function Explore() {
       return;
     }
 
-    // L’API renvoie un OBJET, pas un tableau
     setSelected(response.data);
   }
 
@@ -272,8 +293,15 @@ export default function Explore() {
           <FlatList
             data={result}
             keyExtractor={(item) => item.id.toString()}
+
+            initialNumToRender={20}
+            maxToRenderPerBatch={20}
+            windowSize={10}
+            removeClippedSubviews={true}
+
             onEndReached={loadMore}
-            onEndReachedThreshold={0.5}
+            onEndReachedThreshold={0.2}
+
             renderItem={({ item }) => (
               <Pressable
                 onPress={() => handleSelectCharacter(item.id)}
