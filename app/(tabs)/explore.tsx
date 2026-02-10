@@ -6,6 +6,7 @@ import { fetchAnUser, fetchUsers } from "../services/simpsonsService";
 
 export default function Explore() {
 
+  const maxPage = 60;
   type Character = {
     id: number;
     name: string;
@@ -23,7 +24,7 @@ export default function Explore() {
   const [selected, setSelected] = useState<Character | null>(null);
   const [error, setError] = useState(null);
   const [isLoadingMore, setIsLoadingMore] = useState(false);
-
+  const [loadMoreCooldown, setLoadMoreCooldown] = useState(false);
 
   async function handleFetch() {
     const response = await fetchUsers(1);
@@ -41,8 +42,14 @@ export default function Explore() {
 
 
   async function loadMore() {
-    if (isLoadingMore) return;
+    if (isLoadingMore || loadMoreCooldown) return;
+    if (page >= maxPage) return;
+    
+    setLoadMoreCooldown(true);
+    setTimeout(() => setLoadMoreCooldown(false), 300);
+
     setIsLoadingMore(true);
+
 
     const nextPage = page + 1;
 
@@ -295,8 +302,8 @@ export default function Explore() {
             keyExtractor={(item) => item.id.toString()}
 
             initialNumToRender={20}
-            maxToRenderPerBatch={20}
-            windowSize={10}
+            maxToRenderPerBatch={10}
+            windowSize={5}
             removeClippedSubviews={true}
 
             onEndReached={loadMore}
