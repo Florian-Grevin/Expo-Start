@@ -1,6 +1,8 @@
 import { Ionicons } from "@expo/vector-icons";
 import { Tabs } from "expo-router";
 import React from "react";
+import { Image } from "react-native";
+import SimpsonsLogo from "../../assets/images/logo.png";
 
 export default function TabsLayout() {
     return (
@@ -33,12 +35,31 @@ export default function TabsLayout() {
             <Tabs.Screen
             name="explore"
             options={{
-                title: "Explorer",
-                tabBarIcon: ({ color, size }) => (
-                    <Ionicons name="search" size={size} color={color} />
+                headerTitle: () => (
+                <Image
+                    source={SimpsonsLogo}
+                    style={{
+                    width: 140,
+                    height: 50,
+                    resizeMode: "contain",
+                    }}
+                />
+                ),
+                tabBarIcon: ({ size, color }) => (
+                <Image
+                    source={SimpsonsLogo}
+                    style={{
+                    width: size + 10,
+                    height: size + 10,
+                    tintColor: color,
+                    resizeMode: "contain",
+                    }}
+                />
                 ),
             }}
             />
+
+
 
             <Tabs.Screen    
                 name="about"
