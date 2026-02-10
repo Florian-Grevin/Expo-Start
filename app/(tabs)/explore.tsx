@@ -200,12 +200,12 @@ export default function Explore() {
           </View>
 
           <Text style={{ fontSize: 18, fontWeight: "bold", marginTop: 10 }}>
-            Citations Célèbres
+            Quote
           </Text>
           <FlatList
             style={{
               marginTop: 10,
-              marginBottom: 420,
+              marginBottom: 430,
               width: "100%",
             }}
             contentContainerStyle={{
