@@ -1,8 +1,8 @@
 const url = 'https://thesimpsonsapi.com/api/';
 
-export async function fetchUsers(name = "") {
+export async function fetchUsers(page = 1) {
   try {
-    const res = await fetch(`${url}characters`);
+    const res = await fetch(`${url}characters?page=${page}`);
 
     if (!res.ok) {
       return {
@@ -27,6 +27,7 @@ export async function fetchUsers(name = "") {
     };
   }
 }
+
 
 export async function fetchAnUser(id) {
   try {

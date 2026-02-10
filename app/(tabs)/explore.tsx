@@ -20,23 +20,42 @@ export default function Explore() {
 
 
   const [name, setName] = useState("");
-  const [result, setResult] = useState<Character[] | null>(null);
+  const [page, setPage] = useState(1);
+  const [result, setResult] = useState<Character[]>([]);
   const [selected, setSelected] = useState<Character | null>(null);
   const [error, setError] = useState(null);
 
   async function handleFetch() {
-    setError(null);
-    setSelected(null);
+    const response = await fetchUsers(1);
 
-    const response = await fetchUsers(name);
-
-    if (!response.ok) {
-      setError(response.error);
-      return;
-    }
+    if (!response.ok) return setError(response.error);
 
     setResult(response.data.results);
+    setPage(1);
   }
+
+
+  async function loadMore() {
+    const nextPage = page + 1;
+
+    const response = await fetchUsers(nextPage);
+    if (!response.ok) return;
+
+    const newItems: Character[] = response.data.results;
+
+    if (!newItems || newItems.length === 0) return;
+
+    const filtered = newItems.filter(
+      (item) => !result.some((existing) => existing.id === item.id)
+    );
+
+
+    if (filtered.length === 0) return;
+    setResult((prev) => [...prev, ...filtered]);
+    setPage(nextPage);
+  }
+
+
 
   async function handleSelectCharacter(id : number) {
     setError(null);
@@ -253,6 +272,8 @@ export default function Explore() {
           <FlatList
             data={result}
             keyExtractor={(item) => item.id.toString()}
+            onEndReached={loadMore}
+            onEndReachedThreshold={0.5}
             renderItem={({ item }) => (
               <Pressable
                 onPress={() => handleSelectCharacter(item.id)}
@@ -286,6 +307,7 @@ export default function Explore() {
               </Pressable>
             )}
           />
+
         </View>
       )}
     </View>
