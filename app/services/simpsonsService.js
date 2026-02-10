@@ -1,5 +1,5 @@
-// services/userService.js
 const url = 'https://thesimpsonsapi.com/api/';
+
 export async function fetchUsers(name = "") {
   try {
     const res = await fetch(`${url}characters`);
@@ -56,4 +56,8 @@ export async function fetchAnUser(id) {
   }
 }
 
-
+// 🔥 Export par défaut regroupé
+export default {
+  fetchUsers,
+  fetchAnUser,
+};

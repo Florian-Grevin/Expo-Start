@@ -24,7 +24,7 @@ export default function About() {
 
 const styles = StyleSheet.create({
   button: {
-    backgroundColor: "#0a3766",
+    backgroundColor: "#4ea0c6",
     paddingVertical: 12,
     paddingHorizontal: 20,
     borderRadius: 8,

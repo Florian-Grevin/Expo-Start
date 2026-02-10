@@ -1,6 +1,6 @@
 import { Ionicons } from "@expo/vector-icons";
 import { useEffect, useState } from "react";
-import { FlatList, Image, Pressable, Text, TextInput, View } from "react-native";
+import { FlatList, Image, Pressable, Text, View } from "react-native";
 import { fetchAnUser, fetchUsers } from "../services/simpsonsService";
 
 
@@ -15,7 +15,7 @@ export default function Explore() {
     birthdate: number;
     portrait_path: string;
     phrases: string[];
-
+    status: string;
   };
 
 
@@ -59,22 +59,6 @@ export default function Explore() {
   return (
     <View style={{ flex: 1, alignItems: "center" }}>
       
-      {/* Champ de recherche */}
-      {!selected && (
-        <TextInput
-          placeholder="Enter Name"
-          value={name}
-          onChangeText={setName}
-          style={{
-            borderWidth: 1,
-            borderColor: "black",
-            marginTop: 80,
-            marginBottom: 20,
-            width: "80%",
-          }}
-        />
-      )}
-
       {error && <Text style={{ color: "red" }}>Erreur: {error}</Text>}
 
       {/* 🟡 FICHE PERSONNAGE */}
@@ -90,13 +74,18 @@ export default function Explore() {
               padding: 6,
             }}
           >
-            <Ionicons name="arrow-back" size={28} color="#0a3766" />
+            <Ionicons name="arrow-back" size={28} color="#4ea0c6" />
           </Pressable>
 
-          <Image
-            source={{ uri: `https://cdn.thesimpsonsapi.com/500${selected.portrait_path}` }}
-            style={{ width: 150, height: 150, borderRadius: 500, backgroundColor: "#3b83cbff", }}
-          />
+            <Image
+              source={{ uri: `https://cdn.thesimpsonsapi.com/500${selected.portrait_path}` }}
+              style={{
+                width: 150,
+                height: 150,
+                borderRadius: 500,
+                backgroundColor: "#2782bb",
+              }}
+            />
 
           <Text style={{ fontSize: 22, fontWeight: "bold", marginTop: 10 }}>
             {selected.name}
@@ -118,12 +107,12 @@ export default function Explore() {
             <View
               style={{
                 flexDirection: "row",
-                alignItems: "flex-start", // 🔥 important
+                alignItems: "flex-start",
                 marginBottom: 8,
-                flexWrap: "wrap", // 🔥 permet le retour à la ligne
+                flexWrap: "wrap",
               }}
             >
-              <Ionicons name="briefcase" size={20} color="#0a3766" />
+              <Ionicons name="briefcase" size={20} color="#4ea0c6" />
               <Text style={{ fontSize: 14, marginLeft: 8, fontWeight: "bold" }}>
                 Occupation :
               </Text>
@@ -131,8 +120,8 @@ export default function Explore() {
                 style={{
                   fontSize: 14,
                   marginLeft: 5,
-                  flex: 1,          // 🔥 le texte prend toute la largeur restante
-                  flexWrap: "wrap", // 🔥 retour à la ligne
+                  flex: 1,
+                  flexWrap: "wrap",
                 }}
               >
                 {selected.occupation}
@@ -148,7 +137,7 @@ export default function Explore() {
                 flexWrap: "wrap",
               }}
             >
-              <Ionicons name="male-female" size={20} color="#0a3766" />
+              <Ionicons name="male-female" size={20} color="#4ea0c6" />
               <Text style={{ fontSize: 14, marginLeft: 8, fontWeight: "bold" }}>
                 Genre :
               </Text>
@@ -166,7 +155,7 @@ export default function Explore() {
                 flexWrap: "wrap",
               }}
             >
-              <Ionicons name="hourglass" size={20} color="#0a3766" />
+              <Ionicons name="hourglass" size={20} color="#4ea0c6" />
               <Text style={{ fontSize: 14, marginLeft: 8, fontWeight: "bold" }}>
                 Âge :
               </Text>
@@ -183,7 +172,7 @@ export default function Explore() {
                 flexWrap: "wrap",
               }}
             >
-              <Ionicons name="calendar" size={20} color="#0a3766" />
+              <Ionicons name="calendar" size={20} color="#4ea0c6" />
               <Text style={{ fontSize: 14, marginLeft: 8, fontWeight: "bold" }}>
                 Naissance :
               </Text>
@@ -191,9 +180,24 @@ export default function Explore() {
                 {selected.birthdate}
               </Text>
             </View>
+
+            {/* Status */}
+            <View
+              style={{
+                flexDirection: "row",
+                alignItems: "flex-start",
+                flexWrap: "wrap",
+              }}
+            >
+              <Ionicons name="information-circle" size={20} color="#4ea0c6" />
+              <Text style={{ fontSize: 14, marginLeft: 8, fontWeight: "bold" }}>
+                Status :
+              </Text>
+              <Text style={{ fontSize: 14, marginLeft: 5, flex: 1, flexWrap: "wrap" }}>
+                {selected.status}
+              </Text>
+            </View>
           </View>
-
-
 
           <Text style={{ fontSize: 18, fontWeight: "bold", marginTop: 10 }}>
             Citations Célèbres
@@ -202,11 +206,11 @@ export default function Explore() {
             style={{
               marginTop: 10,
               marginBottom: 420,
-              width: "100%", // 🔥 IMPORTANT : le FlatList doit prendre toute la largeur
+              width: "100%",
             }}
             contentContainerStyle={{
               paddingBottom: 40,
-              paddingHorizontal: 5, // 🔥 évite que les cartes touchent les bords
+              paddingHorizontal: 5,
             }}
             data={selected.phrases}
             keyExtractor={(item, index) => index.toString()}
@@ -221,17 +225,17 @@ export default function Explore() {
                   borderColor: "#ddd",
                   flexDirection: "row",
                   alignItems: "flex-start",
-                  width: "100%", // 🔥 garantit que la carte prend toute la largeur
+                  width: "100%",
                 }}
               >
-                <Ionicons name="chatbubble-ellipses" size={18} color="#0a3766" />
+                <Ionicons name="chatbubble-ellipses" size={18} color="#4ea0c6" />
 
                 <Text
                   style={{
                     marginLeft: 10,
                     fontSize: 14,
-                    flex: 1,          // 🔥 le plus important : le texte prend toute la place
-                    flexWrap: "wrap", // 🔥 retour à la ligne
+                    flex: 1,
+                    flexWrap: "wrap",
                   }}
                 >
                   {item}
@@ -269,7 +273,7 @@ export default function Explore() {
                     width: 65,
                     height: 65,
                     borderRadius: 500,
-                    backgroundColor: "#3b83cbff",
+                    backgroundColor: "#2782bb",
                   }}
                 />
 
