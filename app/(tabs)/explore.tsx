@@ -124,7 +124,7 @@ export default function Explore() {
                   flexWrap: "wrap",
                 }}
               >
-                {selected.occupation}
+                {selected?.occupation ?? "Unknown"}
               </Text>
             </View>
 
@@ -142,7 +142,7 @@ export default function Explore() {
                 Genre :
               </Text>
               <Text style={{ fontSize: 14, marginLeft: 5, flex: 1, flexWrap: "wrap" }}>
-                {selected.gender}
+                {selected?.gender ?? "?"}
               </Text>
             </View>
 
@@ -160,7 +160,7 @@ export default function Explore() {
                 Âge :
               </Text>
               <Text style={{ fontSize: 14, marginLeft: 5, flex: 1, flexWrap: "wrap" }}>
-                {selected.age}
+                {selected?.age ?? "?"}
               </Text>
             </View>
 
@@ -177,7 +177,7 @@ export default function Explore() {
                 Naissance :
               </Text>
               <Text style={{ fontSize: 14, marginLeft: 5, flex: 1, flexWrap: "wrap" }}>
-                {selected.birthdate}
+                {selected?.birthdate ?? "?"}
               </Text>
             </View>
 
@@ -194,7 +194,7 @@ export default function Explore() {
                 Status :
               </Text>
               <Text style={{ fontSize: 14, marginLeft: 5, flex: 1, flexWrap: "wrap" }}>
-                {selected.status}
+                {selected?.status ?? "?"}
               </Text>
             </View>
           </View>
@@ -280,7 +280,7 @@ export default function Explore() {
                 <View style={{ marginLeft: 10, flex: 1 }}>
                   <Text style={{ fontWeight: "bold" }}>{item.name}</Text>
                   <Text numberOfLines={3} ellipsizeMode="tail" style={{ fontSize: 12 }}>
-                    {item.occupation}
+                    {item?.occupation ?? "Unknown"}
                   </Text>
                 </View>
               </Pressable>
